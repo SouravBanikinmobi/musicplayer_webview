@@ -1,0 +1,76 @@
+<html>
+<head>
+    <style type=text/css>
+        .mp_center {
+         
+        }
+    </style>
+</head>
+
+<body style="margin:0;padding:0;width:300;height:250">
+    <div class=mp_center>
+      <div ontouchend="onClick()">
+        <table><tr>
+           <img src=https://i.l.inmobicdn.net/ifctpads/IFC/CCN/assets/Gopuff_320x50_N_1548059241.jpg alt='tap here' width=300 height=41>
+        <video width="300" height="168"  muted autoplay loop>
+          <source src=https://i.l.inmobicdn.net/ifctpads/IFC/CCN/assets/BTSCleaningHQ1_1548059416.mp4 type=video/mp4>
+        </video>
+        <img src=https://i.l.inmobicdn.net/ifctpads/IFC/CCN/assets/Gopuff_320x50_N_1548059241.jpg alt='tap here' width=300 height=41>
+      </tr></table>
+      </div>
+    </div>
+</body>
+<script src='mraid.js'></script>
+<script type=text/javascript>
+	
+    var customClkUrl= "$CLICK_URL";
+    if(customClkUrl.indexOf('?')>0){
+         customClkUrl = customClkUrl+ '&m=8';
+    } else {
+        customClkUrl = customClkUrl + '?m=8';
+    }
+
+    var render_beacon_urls = [];
+    var mraidTag= true;
+    var inMobiViewableChange = "viewableChange";
+    var inmobiImpBeaconFired = false;
+
+    function fireTrueViewPixel() {
+      window['$RECORD_EVENT_FUN'](18);
+      for (var i = 0; i < render_beacon_urls.length; i++) {
+          (new Image()).src = render_beacon_urls[i];
+      }
+    }
+
+    if (mraidTag && typeof mraid != "undefined" && mraid != null) {
+      mraid.addEventListener(inMobiViewableChange, handleViewableChange);
+      handleViewableChange();
+    } else {
+      fireTrueViewPixel();
+    }
+
+    function handleViewableChange() {
+      if (!inmobiImpBeaconFired) {
+        fireTrueViewPixel();
+        inmobiImpBeaconFired = true;
+        mraid.removeEventListener(inMobiViewableChange, handleViewableChange);
+      }
+    };
+
+    function fireLandingPage() {
+      if (mraidTag && typeof mraid != "undefined" && mraid != null) {
+        mraid.open("https://play.google.com/store/apps/details?id=com.main.gopuff");
+      } else {
+        window.open("https://play.google.com/store/apps/details?id=com.main.gopuff", "_blank");
+      }
+    }
+
+    var click_beacon_urls = [customClkUrl];
+    function onClick() {
+      setTimeout(fireLandingPage, 300);
+      for (var a = 0; a < click_beacon_urls.length; a++) {
+          (new Image()).src = click_beacon_urls[a];
+      }
+    };
+</script>
+</html>
